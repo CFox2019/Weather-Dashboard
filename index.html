@@ -17,8 +17,14 @@
         <div class="row">
             <aside class="col-lg-3 bg-light">
                 <label for="search"><h5>Search for a city:</h5></label>
-                <input type="text" class="form-control" placeholder="Enter city" id="search-val">
-                <button class="btn btn-primary" id="search-btn"><i class="fas fa-search"></i></button>
+                <div class="form-inline form-group">
+                    <input type="text" class="form-control" placeholder="Enter city" id="search-val">
+                    <button class="btn btn-primary" id="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+
+                <ul class="list-group" id="city-list"></ul>
+                <!-- Clear should only appear if there are results listed and should be hidden when there are no results -->
+                <button type="button" class="btn btn-warning">Clear</button>
             </aside>
         </div>
     </div>

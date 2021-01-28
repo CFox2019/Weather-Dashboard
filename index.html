@@ -10,6 +10,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/luxon@1.25.0/build/global/luxon.min.js"></script>
+
     <title>Weather Dashboard</title>
 </head>
 <body>
@@ -26,13 +28,21 @@
                     <button class="btn btn-primary" id="search-btn"><i class="fas fa-search"></i></button>
                 </div>
 
-                <ul class="list-group" id="city-list"></ul>
-                <!-- Clear should only appear if there are results listed and should be hidden when there are no results -->
-                <button type="button" class="btn btn-warning">Clear</button>
+                <ul class="list-group" id="search-history"></ul>
             </aside>
+            <div class="card col-lg-9">
+                <div class="row" id="current-day">
+                    <div class="card-body"></div>
+                </div>
+                <!-- <div class="row" id="five-day">
+                    <h4>5-Day Forecast:</h4>
+                </div> -->
+            </div>
         </div>
     </div>
 
+
     <script src="Assets/script.js"></script>
+
 </body>
 </html>

@@ -18,4 +18,4 @@ To begin, type a city name in to the 'Enter city' search bar. Below, you will se
 
 * [LinkedIn](https://www.linkedin.com/in/cdfox/)
 * [GitHub-Repositories](https://github.com/CFox2019/Weather-Dashboard)
-* [GitHub-live-link]()
+* [GitHub-live-link](https://cfox2019.github.io/Weather-Dashboard/)

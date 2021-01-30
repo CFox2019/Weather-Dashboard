@@ -6,7 +6,7 @@ $( document ).ready(function() {
     var searchCityInput = $('#search-city')
     var forecastRow = $('#forecast-row')
 
-    // Create click listener for 'search' button
+    // Click listener for 'search' button
     $('#search-btn').on("click", function() {
         var city = searchCityInput.val()
         saveSearchRecord(city)
@@ -47,9 +47,9 @@ $( document ).ready(function() {
     }
 
     function parseWeatherData(data) {
-        // TODO: Data needs to include city, the current date, an icon that represents the current
+        // Data needs to include city, the current date, an icon that represents the current
         // weather condition, temp, humidity, wind speed, and UV index
-        // UV Index number should have a box around it that changes color, depending on the value
+        // UV Index number should change color, depending on the value
         var uvIndex = data.current.uvi
         var uvClass = 'btn btn-success'
         if (uvIndex >= 7) {
@@ -106,11 +106,11 @@ $( document ).ready(function() {
     }
 
     function saveSearchRecord(city) {
-        // 1. Load search history from localStorage. If nothing is there, default to an empty array.
+        // Load search history from localStorage. If nothing is there, default to an empty array.
         var searchHistoryArr = JSON.parse(localStorage.getItem("searchHistoryData")) || []
-        // 2. Push the `city` into the search history array
+        // Push the `city` into the search history array
         searchHistoryArr.push(city)
-        // 3. Store the updated search history in localStorage
+        // Store the updated search history in localStorage
         localStorage.setItem("searchHistoryData", JSON.stringify(searchHistoryArr))
     }
 
@@ -128,7 +128,7 @@ $( document ).ready(function() {
             searchHistoryDiv.append(row)
         });
 
-        // Get all list-group-item elements and add an on click listener
+        // Get all list-group-item elements and add an onClick listener
         $('.list-group-item').on('click', (e) => {
             console.log('list-group-tem clicked', e.target.textContent);
             // Call searchWeather function and pass in e.target.textContent
@@ -139,7 +139,7 @@ $( document ).ready(function() {
     function showCurrentDay(currentDayData) {
         currentDayDiv.empty()
 
-        // Create 'card' class for today's weather data
+        // 'card' class for today's weather data
         var cardContainer = $('<div>', {class: 'card'})
         var currentCardBodyDiv = $('<div>', {class: 'card-body'})
         var currentDayTitle = $('<h3>', {id: 'current-day-card-title'})
@@ -166,7 +166,7 @@ $( document ).ready(function() {
     }
 
     function showDailyForecast(forecastData) {
-        // Create a 'card' class for the 5 day forecast
+        // 'card' class for the 5 day forecast
         //  - Data needs to include the following 5 dates, an icon representing the weather condition on each day, temp, and humidity
         var columnDiv = $('<div>', {class: 'col-md-2'})
         var forecastCardDiv = $('<div>', {class: 'card bg-primary text-white'})

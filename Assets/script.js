@@ -4,6 +4,7 @@ $( document ).ready(function() {
     var currentDateString = currentDate.toLocaleString(DateTime.DATE_SHORT)
     var currentDayDiv = $('#current-day')
     var searchCityInput = $('#search-city')
+    var forecastRow = $('#forecast-row')
 
     // Create click listener for 'search' button
     $('#search-btn').on("click", function() {
@@ -25,53 +26,82 @@ $( document ).ready(function() {
                 appid: "6617c4c00e3f102ebf0972604493763d",
                 units: "imperial"
             },
-            success: parseWeatherData
+            success: searchWeatherUV
+        })
+    }
+
+    function searchWeatherUV(data) {
+        var coord = data.city.coord
+        $.ajax({
+            url: "https://api.openweathermap.org/data/2.5/onecall",
+            data: {
+                lat: coord.lat,
+                lon: coord.lon,
+                appid: "6617c4c00e3f102ebf0972604493763d",
+                units: "imperial"
+            },
+            success: (uvData) => {
+                parseWeatherData({...data, ...uvData})
+            }
         })
     }
 
     function parseWeatherData(data) {
-        console.log("weather data", data);
         // TODO: Data needs to include city, the current date, an icon that represents the current
         // weather condition, temp, humidity, wind speed, and UV index
         // UV Index number should have a box around it that changes color, depending on the value
-        console.log("City:", data.city.name)
-        console.log("current date:", currentDateString)
-
+        var uvIndex = data.current.uvi
+        var uvClass = 'btn btn-success'
+        if (uvIndex >= 7) {
+            uvClass = 'btn btn-danger'
+        } else if (uvIndex >= 3 && uvIndex < 7){
+            uvClass = 'btn btn-warning'
+        }
         var currentDayData = {
             title: `${data.city.name} (${currentDateString})`,
-            icon: data.list[0].weather[0].icon,
+            icon: data.current.weather[0].icon,
             infoList: [
                 {
                     title: 'Temperature',
-                    value: `${data.list[0].main.temp} ºF`
+                    value: `${data.current.temp} ºF`,
+                    class: null
                 },
                 {
                     title: 'Humidity',
-                    value: `${data.list[0].main.humidity} %`
+                    value: `${data.current.humidity} %`,
+                    class: null
                 },
                 {
                     title: 'Wind Speed',
-                    value: `${data.list[0].wind.speed} MPH`
+                    value: `${data.current.wind_speed} MPH`,
+                    class: null
                 },
                 {
                     title: 'UV Index',
-                    value: data.list[0].main.temp
-                }
+                    value: uvIndex,
+                    class: uvClass
+                },
             ]
         }
         showCurrentDay(currentDayData)
 
-        data.list.forEach(element => {
-            console.log(element.dt_txt)
-            // Icon of the current weather condition
-            console.log("icon", data.list[0].weather[0].icon)
-            // Temperature
-            console.log("temp", data.list[0].main.temp)
-            // Humidity
-            console.log("humidity", data.list[0].main.humidity)
-            // Wind Speed
-            console.log("wind speed:", data.list[0].wind.speed)
-            // UV Index that changes colors depending on the value
+        forecastRow.empty()
+        data.daily.slice(1, 6).forEach(element => {
+            var forecastData = {
+                title: `${DateTime.fromMillis(element.dt * 1000).toLocaleString(DateTime.DATE_SHORT)}`,
+                icon: element.weather[0].icon,
+                infoList: [
+                    {
+                        title: 'Temp',
+                        value: `${element.temp.day} ºF`
+                    },
+                    {
+                        title: 'Humidity',
+                        value: `${element.humidity} %`
+                    }
+                ]
+            }
+            showDailyForecast(forecastData)
         })
     }
 
@@ -113,17 +143,22 @@ $( document ).ready(function() {
         var cardContainer = $('<div>', {class: 'card'})
         var currentCardBodyDiv = $('<div>', {class: 'card-body'})
         var currentDayTitle = $('<h3>', {id: 'current-day-card-title'})
-        var currentDayIcon = $('<img>')
+        var currentDayIcon = $("<img>").attr("src", "http://openweathermap.org/img/w/" + currentDayData.icon + ".png")
 
         cardContainer.append(currentCardBodyDiv)
         currentCardBodyDiv.append(currentDayTitle)
-        currentCardBodyDiv.append(currentDayIcon)
 
         currentDayTitle.text(currentDayData.title)
+        currentDayTitle.append(currentDayIcon)
 
         currentDayData.infoList.forEach(element => {
             var cardTextP = $('<p>', {class: 'card-text'})
-            cardTextP.text(`${element.title}: ${element.value}`)
+            var cardTextSpan = $('<span>', {class: element.class})
+
+            cardTextP.text(`${element.title}: `)
+            cardTextSpan.text(element.value)
+
+            cardTextP.append(cardTextSpan)
             currentCardBodyDiv.append(cardTextP)
         });
 
@@ -137,16 +172,22 @@ $( document ).ready(function() {
         var forecastCardDiv = $('<div>', {class: 'card bg-primary text-white'})
         var forecastCardBodyDiv = $('<div>', {class: 'card-body p-2'})
         var forecastCardTitle = $('<h5>', {class: 'card-title'})
-        var forecastImg = $('<img>')
-        var forecastCardTextP = $('<p>', {class: 'card-text'})
+        var forecastImg = $("<img>").attr("src", "http://openweathermap.org/img/w/" + forecastData.icon + ".png")
 
         columnDiv.append(forecastCardDiv)
         forecastCardDiv.append(forecastCardBodyDiv)
         forecastCardBodyDiv.append(forecastCardTitle)
-        forecastCardTitle.append(forecastImg)
-        forecastImg.append(forecastCardTextP)
 
-        $('#forecast-row').append(columnDiv)
+        forecastCardTitle.text(forecastData.title)
+        forecastCardTitle.append(forecastImg)
+
+        forecastData.infoList.forEach(element => {
+            var forecastTextP = $('<p>', {class: 'card-text'})
+            forecastTextP.text(`${element.title}: ${element.value}`)
+            forecastCardBodyDiv.append(forecastTextP)
+        })
+
+        forecastRow.append(columnDiv)
     }
 
     showSearchHistory()

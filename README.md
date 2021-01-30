@@ -1,46 +1,21 @@
-# 06 Server-Side APIs: Weather Dashboard
+# Weather Dashboard
 
-Developers are often tasked with retrieving data from another application's API and using it in the context of their own. Third-party APIs allow developers to access their data and functionality by making requests with specific parameters to a URL. Your challenge is to build a weather dashboard that will run in the browser and feature dynamically updated HTML and CSS.
+Plan your day by checking the current weather conditions and the 5 Day Forecast for the desired city.
 
-Use the [OpenWeather API](https://openweathermap.org/api) to retrieve weather data for cities. The documentation includes a section called "How to start" that will provide basic setup and usage instructions. Use `localStorage` to store any persistent data.
+## How-to:
 
-## User Story
+To begin, type a city name in to the 'Enter city' search bar. Below, you will see the most recent searched city appended to the previously searched city, if you have searched for more than one city. To the right of the search bar, you will see the city name, current day, an icon of the current weather condition, along with Temp, Humidity, Wind Speed, and UV Index. Below the current weather conditions, you will also see the next 5 day forecast.
 
-```
-AS A traveler
-I WANT to see the weather outlook for multiple cities
-SO THAT I can plan a trip accordingly
-```
+### Resources
 
-## Acceptance Criteria
+[Reddit](https://www.reddit.com/r/FreeCodeCamp/comments/4con5s/how_do_i_use_the_icon_given_in_the_open_weather/)
 
-```
-GIVEN a weather dashboard with form inputs
-WHEN I search for a city
-THEN I am presented with current and future conditions for that city and that city is added to the search history
-WHEN I view current weather conditions for that city
-THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
-WHEN I view the UV index
-THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-WHEN I view future weather conditions for that city
-THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, and the humidity
-WHEN I click on a city in the search history
-THEN I am again presented with current and future conditions for that city
-WHEN I open the weather dashboard
-THEN I am presented with the last searched city forecast
-```
+### Screenshot
 
-The following image demonstrates the application functionality:
+![Weather Dashboard](Assets/weather-dashboard-screenshot.png)
 
-![weather dashboard demo](./Assets/06-server-side-apis-homework-demo.png)
+### Links
 
-## Review
-
-You are required to submit the following for review:
-
-* The URL of the deployed application.
-
-* The URL of the GitHub repository. Give the repository a unique name and include a README describing the project.
-
-- - -
-© 2021 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+* [LinkedIn](https://www.linkedin.com/in/cdfox/)
+* [GitHub-Repositories](https://github.com/CFox2019/Weather-Dashboard)
+* [GitHub-live-link]()

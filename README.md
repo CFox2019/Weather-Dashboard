@@ -13,6 +13,7 @@ To begin, type a city name in to the 'Enter city' search bar. Below, you will se
 ### Screenshot
 
 ![Weather Dashboard](Assets/weather-dashboard-screenshot.png)
+![Weather Dashboard](Assets/weather-dashboard-screenshot-2.png)
 
 ### Links
 
